@@ -9,8 +9,13 @@ import org.springframework.core.io.ClassPathResource;
 public class BeanFactoryTest {
 	@Test
 	public void testSimple(){
-		BeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("org/springframework/beans/fireTest/MyTestBean.xml"));
+		//先构建resource，后面会用到它的inputStream
+		ClassPathResource resource = new ClassPathResource("org/springframework/beans/fireTest/MyTestBean.xml");
+		//利用resource构建BeanFactory
+		BeanFactory beanFactory = new XmlBeanFactory(resource);
+		//从beanFactory获取实例
 		MyTestBean myTestBean = (MyTestBean)beanFactory.getBean("myTestBean");
+
 		System.out.println(myTestBean);
 	}
 }

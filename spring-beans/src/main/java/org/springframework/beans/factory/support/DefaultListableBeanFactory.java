@@ -153,7 +153,10 @@ public class  DefaultListableBeanFactory extends AbstractAutowireCapableBeanFact
 	/** Map from dependency type to corresponding autowired value */
 	private final Map<Class<?>, Object> resolvableDependencies = new ConcurrentHashMap<>(16);
 
-	/** Map of bean definition objects, keyed by bean name */
+	/**
+	 * 存放BeanDefinition:  beanName -> BeanDefinition
+	 * Map of bean definition objects, keyed by bean name
+	 */
 	private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(256);
 
 	/** Map of singleton and non-singleton bean names, keyed by dependency type */
@@ -791,9 +794,11 @@ public class  DefaultListableBeanFactory extends AbstractAutowireCapableBeanFact
 
 		if (beanDefinition instanceof AbstractBeanDefinition) {
 			try {
+				//如果是AbstractBeanDefinition子类，进行一下校验
 				((AbstractBeanDefinition) beanDefinition).validate();
 			}
 			catch (BeanDefinitionValidationException ex) {
+				//捕获到一个异常，却又以另一个异常抛出去，图啥呢
 				throw new BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,
 						"Validation of bean definition failed", ex);
 			}

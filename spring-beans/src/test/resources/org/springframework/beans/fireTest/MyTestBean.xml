@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xsi:schemaLocation="
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="myTestBean" class="org.springframework.beans.fireTest.MyTestBean"/>
+	<bean id="myTestBean"
+		  name = "Fire"
+		  class="org.springframework.beans.fireTest.MyTestBean"
+		  scope="prototype"
+		  autowire = "byName"
+		  depends-on="environment">
+		<description>hello, this is Fire's first bean's description</description>
+		<meta key="Title" value="Sir"/>
+		<constructor-arg index="0" value="你好"/>
+	</bean>
 </beans>

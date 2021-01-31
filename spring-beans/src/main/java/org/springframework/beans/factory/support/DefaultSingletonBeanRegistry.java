@@ -38,6 +38,10 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
+ * 默认的AliasRegistry和SingletonBeanRegistry的实现类
+ * 即可以：
+ * 1.对别名增删改查
+ * 2.对单例对象增删改查
  * Generic registry for shared bean instances, implementing the
  * {@link org.springframework.beans.factory.config.SingletonBeanRegistry}.
  * Allows for registering singleton instances that should be shared

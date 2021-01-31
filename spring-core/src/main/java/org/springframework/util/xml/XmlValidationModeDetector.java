@@ -98,6 +98,7 @@ public class XmlValidationModeDetector {
 				if (this.inComment || !StringUtils.hasText(content)) {
 					continue;
 				}
+				//如果有docType,则使用DTD
 				if (hasDoctype(content)) {
 					isDtdValidated = true;
 					break;
@@ -107,6 +108,7 @@ public class XmlValidationModeDetector {
 					break;
 				}
 			}
+			//如果有docType,则使用DTD，否则使用XSD
 			return (isDtdValidated ? VALIDATION_DTD : VALIDATION_XSD);
 		}
 		catch (CharConversionException ex) {
@@ -124,6 +126,8 @@ public class XmlValidationModeDetector {
 	 * Does the content contain the DTD DOCTYPE declaration?
 	 */
 	private boolean hasDoctype(String content) {
+		//简单粗暴
+		//这里函数至简的思想值得学习一下，一个方法就是要纯粹，不要干太多事
 		return content.contains(DOCTYPE);
 	}
 
@@ -149,9 +153,11 @@ public class XmlValidationModeDetector {
 	 */
 	@Nullable
 	private String consumeCommentTokens(String line) {
+		//Fire先生
 		if (!line.contains(START_COMMENT) && !line.contains(END_COMMENT)) {
 			return line;
 		}
+		//<!--Fire先生-->
 		String currLine = line;
 		while ((currLine = consume(currLine)) != null) {
 			if (!this.inComment && !currLine.trim().startsWith(START_COMMENT)) {

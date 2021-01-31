@@ -140,50 +140,112 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	@Nullable
 	private volatile Object beanClass;
 
+	/**
+	 * bean的作用范围
+	 */
 	@Nullable
 	private String scope = SCOPE_DEFAULT;
 
+	/**
+	 * 是否为抽象，对应bean属性abstract
+	 */
 	private boolean abstractFlag = false;
 
+	/**
+	 * 是否为懒加载，对应bean属性lazy-init
+	 */
 	private boolean lazyInit = false;
 
+	/**
+	 * 自动注入模式，对应bean属性autowire
+	 */
 	private int autowireMode = AUTOWIRE_NO;
 
+	/**
+	 * 依赖检查，Spring3.0后弃用这个属性
+	 */
 	private int dependencyCheck = DEPENDENCY_CHECK_NONE;
 
+	/**
+	 * 表示一个bean的实例化依赖另一个bean的完成
+	 * 对应bean的depend-on属性
+	 */
 	@Nullable
 	private String[] dependsOn;
 
+	/**
+	 * 该属性置为false时，容器在自动装配时，将不考虑该bean，即不作为自动装配的候选者
+	 * 对应bean属性autowire-candidate
+	 */
 	private boolean autowireCandidate = true;
 
+	/**
+	 * 自动装配出现多个候选者时，作为首选对象
+	 * 对应bean属性primary
+	 */
 	private boolean primary = false;
 
+	/**
+	 * 用于记录Qualifier，对应子元素qualifier
+	 */
 	private final Map<String, AutowireCandidateQualifier> qualifiers = new LinkedHashMap<>();
 
 	@Nullable
 	private Supplier<?> instanceSupplier;
 
+	/**
+	 * 允许访问非公开的构造器和方法，程序设置 （利用反射呗）
+	 */
 	private boolean nonPublicAccessAllowed = true;
 
+	/**
+	 * 是否以一种宽松的模式解析构造函数
+	 */
 	private boolean lenientConstructorResolution = true;
 
+	/**
+	 * 对应bean属性factory-bean
+	 * 详情参考该属性用法:
+	 * <bean id="default" class="org.springframework.beans.factory.xml.FactoryMethods" factory-method="defaultInstance" />
+	 * <bean id="defaultTestBean" factory-bean="default" factory-method="getTestBean" init-method="haveBirthday" destroy-method="destroy"/>
+	 */
 	@Nullable
 	private String factoryBeanName;
 
+	/**
+	 * 对应bean属性factory-method
+	 * 配合属性factory-bean使用
+	 */
 	@Nullable
 	private String factoryMethodName;
 
+	/**
+	 * 记录构造函数注入属性
+	 * 对应bean属性constructor-arg
+	 */
 	@Nullable
 	private ConstructorArgumentValues constructorArgumentValues;
 
+	/**
+	 * 普通属性集合
+	 */
 	@Nullable
 	private MutablePropertyValues propertyValues;
 
+	/**
+	 * 方法重写的持有者，记录lookup-mothod、replaced-method元素
+	 */
 	private MethodOverrides methodOverrides = new MethodOverrides();
 
+	/**
+	 * 对应bean属性init-method
+	 */
 	@Nullable
 	private String initMethodName;
 
+	/**
+	 * 对应bean属性destroy-method
+	 */
 	@Nullable
 	private String destroyMethodName;
 
@@ -191,13 +253,26 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	private boolean enforceDestroyMethod = true;
 
+	/**
+	 * 是否是用户定义的，而不是应用程序本身定义的，创建AOP时为true，程序设置
+	 */
 	private boolean synthetic = false;
 
+	/**
+	 * 定义这个bean的应用
+	 */
 	private int role = BeanDefinition.ROLE_APPLICATION;
 
+	/**
+	 * bean的描述信息，对应bean的子元素description
+	 */
 	@Nullable
 	private String description;
 
+
+	/**
+	 * 这个bean定义的资源
+	 */
 	@Nullable
 	private Resource resource;
 

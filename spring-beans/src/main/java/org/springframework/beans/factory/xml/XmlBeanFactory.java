@@ -58,6 +58,7 @@ public class XmlBeanFactory extends DefaultListableBeanFactory {
 
 
 	/**
+	 * 啥事不干类型，调用另一个构造方法
 	 * Create a new XmlBeanFactory with the given resource,
 	 * which must be parsable using DOM.
 	 * @param resource XML resource to load bean definitions from
@@ -68,6 +69,8 @@ public class XmlBeanFactory extends DefaultListableBeanFactory {
 	}
 
 	/**
+	 * 调用父类构造方法
+	 * 主要是调用reader来解析XML
 	 * Create a new XmlBeanFactory with the given input stream,
 	 * which must be parsable using DOM.
 	 * @param resource XML resource to load bean definitions from
@@ -75,7 +78,10 @@ public class XmlBeanFactory extends DefaultListableBeanFactory {
 	 * @throws BeansException in case of loading or parsing errors
 	 */
 	public XmlBeanFactory(Resource resource, BeanFactory parentBeanFactory) throws BeansException {
+		//初始化构建一堆东西，咱也不知道具体干了多少活
 		super(parentBeanFactory);
+		// 将xml中的bean配置解析成BeanDefinition
+		// 并将其放入到父类DefaultListableBeanFactory的BeanDefinitionMap中
 		this.reader.loadBeanDefinitions(resource);
 	}
 
